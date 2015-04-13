@@ -1,0 +1,8 @@
+crunch jars were not present in the hadoop class path & task tracker class paths.
+Hence needed to export jar using distributed cache.
+
+export HADOOP_CLASSPATH=/usr/lib/crunch/crunch-core.jar
+javac -classpath `hadoop classpath` com/sumit/ncdc/programs/*.java
+jar -cvf maxtempcrunch.jar com/sumit/ncdc/programs/*.class
+hadoop fs -put /usr/lib/crunch/crunch-core.jar 
+hadoop jar ./maxtempcrunch.jar com.sumit.ncdc.programs.MaxTemperatureCrunch 1901.txt 1901.txt.out
