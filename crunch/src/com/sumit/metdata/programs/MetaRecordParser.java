@@ -7,70 +7,81 @@ public class MetaRecordParser implements Serializable {
 	private boolean complete = true;
 	private Integer year;
 	private Integer month;
-	private Integer maxTemp;
-	private Integer minTemp;
+	private Double maxTemp;
+	private Double minTemp;
 	private Integer daysCalculated;
 	private Double rain;
-	private Integer sunHours;
+	private Double sunHours;
 	
 	public boolean parser(String record) {
 		if(record == null || record.startsWith("#")) {
-			return false;
+			complete = false;
 		}
-		String[] elements = record.trim().split("   ");
+		record = record.trim().replaceAll("\\s+", " ");
+		System.out.println(record+"|");
+		String[] elements = record.split(" ");
+		System.out.println(elements.length);
 		if(elements.length < 7) {
+			System.out.println("Hello "+elements.length);
 			complete = false;
 		}
 		if(elements.length >= 1) {
 			try {
-				year = Integer.parseInt(elements[1]);
+				year = Integer.parseInt(elements[0]);
 			} catch(NumberFormatException ex) {
+				ex.printStackTrace();
 				complete = false;
 			}
 		}
 		if(elements.length >= 2) {
 			try {
-				month = Integer.parseInt(elements[2]);
+				month = Integer.parseInt(elements[1]);
 			} catch(NumberFormatException ex) {
+				ex.printStackTrace();
 				complete = false;
 			}
 		}
 		if(elements.length >= 3) {
 			try {
-				maxTemp = Integer.parseInt(elements[3]);
+				maxTemp = Double.parseDouble(elements[2]);
 			} catch(NumberFormatException ex) {
+				ex.printStackTrace();
 				complete = false;
 			}
 		}
 		if(elements.length >= 4) {
 			try {
-				minTemp = Integer.parseInt(elements[4]);
+				minTemp = Double.parseDouble(elements[3]);
 			} catch(NumberFormatException ex) {
+				ex.printStackTrace();
 				complete = false;
 			}
 		}
 		if(elements.length >= 5) {
 			try {
-				daysCalculated = Integer.parseInt(elements[5]);
+				daysCalculated = Integer.parseInt(elements[4]);
 			} catch(NumberFormatException ex) {
+				ex.printStackTrace();
 				complete = false;
 			}
 		}
 		if(elements.length >= 6) {
 			try {
-				rain = Double.parseDouble(elements[6]);
+				rain = Double.parseDouble(elements[5]);
 			} catch(NumberFormatException ex) {
+				ex.printStackTrace();
 				complete = false;
 			}
 		}
 		if(elements.length >= 7) {
 			try {
-				sunHours = Integer.parseInt(elements[7]);
+				sunHours = Double.parseDouble(elements[6]);
 			} catch(NumberFormatException ex) {
+				ex.printStackTrace();
 				complete = false;
 			}
 		}
-		return true;
+		return complete;
 	}
 
 	public boolean isComplete() {
@@ -85,11 +96,11 @@ public class MetaRecordParser implements Serializable {
 		return month;
 	}
 
-	public Integer getMaxTemp() {
+	public Double getMaxTemp() {
 		return maxTemp;
 	}
 
-	public Integer getMinTemp() {
+	public Double getMinTemp() {
 		return minTemp;
 	}
 
@@ -101,7 +112,7 @@ public class MetaRecordParser implements Serializable {
 		return rain;
 	}
 
-	public Integer getSunHours() {
+	public Double getSunHours() {
 		return sunHours;
 	}
 	

@@ -29,8 +29,8 @@ public class FilterIncompleteRecords extends Configured implements Tool {
 		DistributedCache.addFileToClassPath(new Path("crunch-core.jar"), config);
 		Pipeline pipeline = new MRPipeline(FilterIncompleteRecords.class, config);
 		PCollection<String> collections = pipeline.readTextFile(args[0]);
-		collections.filter(filterFunction());
-		pipeline.writeTextFile(collections, args[1]);
+		PCollection<String> resultCollection = collections.filter(filterFunction());
+		pipeline.writeTextFile(resultCollection, args[1]);
 		PipelineResult result = pipeline.done();
 	    return result.succeeded() ? 0 : 1;
 	}
