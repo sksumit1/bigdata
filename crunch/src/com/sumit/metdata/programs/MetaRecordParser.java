@@ -18,18 +18,14 @@ public class MetaRecordParser implements Serializable {
 			complete = false;
 		}
 		record = record.trim().replaceAll("\\s+", " ");
-		System.out.println(record+"|");
 		String[] elements = record.split(" ");
-		System.out.println(elements.length);
 		if(elements.length < 7) {
-			System.out.println("Hello "+elements.length);
 			complete = false;
 		}
 		if(elements.length >= 1) {
 			try {
 				year = Integer.parseInt(elements[0]);
 			} catch(NumberFormatException ex) {
-				ex.printStackTrace();
 				complete = false;
 			}
 		}
@@ -37,7 +33,6 @@ public class MetaRecordParser implements Serializable {
 			try {
 				month = Integer.parseInt(elements[1]);
 			} catch(NumberFormatException ex) {
-				ex.printStackTrace();
 				complete = false;
 			}
 		}
@@ -45,7 +40,6 @@ public class MetaRecordParser implements Serializable {
 			try {
 				maxTemp = Double.parseDouble(elements[2]);
 			} catch(NumberFormatException ex) {
-				ex.printStackTrace();
 				complete = false;
 			}
 		}
@@ -53,7 +47,6 @@ public class MetaRecordParser implements Serializable {
 			try {
 				minTemp = Double.parseDouble(elements[3]);
 			} catch(NumberFormatException ex) {
-				ex.printStackTrace();
 				complete = false;
 			}
 		}
@@ -61,7 +54,6 @@ public class MetaRecordParser implements Serializable {
 			try {
 				daysCalculated = Integer.parseInt(elements[4]);
 			} catch(NumberFormatException ex) {
-				ex.printStackTrace();
 				complete = false;
 			}
 		}
@@ -69,7 +61,6 @@ public class MetaRecordParser implements Serializable {
 			try {
 				rain = Double.parseDouble(elements[5]);
 			} catch(NumberFormatException ex) {
-				ex.printStackTrace();
 				complete = false;
 			}
 		}
@@ -77,7 +68,6 @@ public class MetaRecordParser implements Serializable {
 			try {
 				sunHours = Double.parseDouble(elements[6]);
 			} catch(NumberFormatException ex) {
-				ex.printStackTrace();
 				complete = false;
 			}
 		}
