@@ -6,3 +6,7 @@ crunch/.project
 *.class
 
 crunch/.settings/org.eclipse.jdt.core.prefs
+
+flume/.project
+
+flume/.classpath
