@@ -1,0 +1,1 @@
+Main-Class: com.sumit.migrate.mysql2cassandraMySqlSource
