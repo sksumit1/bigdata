@@ -13,3 +13,7 @@ FLUME_RUN_DIR=/var/run/flume-ng
 FLUME_HOME=/usr/lib/flume-ng
 
 
+For running mysql-cassandra program
+
+
+
