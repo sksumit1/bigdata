@@ -13,16 +13,25 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  
+  <repositories>
+		<repository>
+			<id>HDP</id>
+			<name>HDP Releases</name>
+			<url>http://repo.hortonworks.com/content/groups/public</url>
+		</repository>
+	</repositories>
+  
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.pig</groupId>
 			<artifactId>pig</artifactId>
-			<version>0.16.0</version>
+			<version>0.15.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.hadoop</groupId>
 			<artifactId>hadoop-common</artifactId>
-			<version>2.4.1</version>
+			<version>2.7.1.2.3.0.6-7</version>
 			<exclusions>
 	        <exclusion>
 	            <artifactId>jdk.tools</artifactId>
@@ -31,4 +40,40 @@
     </exclusions>
 		</dependency>
 	</dependencies>
+	
+	 <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <fork>true</fork>
+                    <compilerArguments>
+                        <bootclasspath>C:\Program Files\Java\jdk1.7.0_79\jre\lib\rt.jar</bootclasspath>
+                   </compilerArguments>
+               </configuration>
+           </plugin>
+                      
+           <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <configuration>
+                <descriptorRefs>
+                    <descriptorRef>jar-with-dependencies</descriptorRef>
+                </descriptorRefs>
+
+            </configuration>
+            <executions>
+                <execution>
+                    <id>assemble-all</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>single</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>          
+       </plugins>
+   </build>
 </project>
