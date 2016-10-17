@@ -1,7 +1,8 @@
 package mypig;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.apache.pig.EvalFunc;
 import org.apache.pig.backend.executionengine.ExecException;
@@ -9,19 +10,27 @@ import org.apache.pig.data.BagFactory;
 import org.apache.pig.data.DataBag;
 import org.apache.pig.data.Tuple;
 import org.apache.pig.data.TupleFactory;
-//Unique page hits by visitor/IP during a fixed time window
-public class SessionPageHits extends EvalFunc<DataBag> {
+//Aggregate all page hits by visitor/IP during a fixed time window
+public class SessionPageHitsCounts extends EvalFunc<DataBag> {
     
 	public DataBag exec(Tuple input) throws ExecException {
 		DataBag sessionDetails = (DataBag) input.get(0);
-		Set<String> items = new HashSet<String>();
+		Map<String,Integer> items = new HashMap<String,Integer>();
 		DataBag returnBag = BagFactory.getInstance().newDefaultBag();
 		for (Tuple tuple : sessionDetails) {
-			items.add((String) tuple.get(2));
+			String url = (String) tuple.get(2);
+			Integer count = items.get(url);
+			if(count == null) {
+				count = 0;
+			}
+			items.put(url, ++count);
 		}
-		for (String item : items) {
+		Iterator<String> it = items.keySet().iterator();
+		while(it.hasNext()) {
 			Tuple tp = TupleFactory.getInstance().newTuple();
-			tp.append(item);
+			String url = it.next();
+			tp.set(0, url);
+			tp.set(1, items.get(url));
 			returnBag.add(tp);
 		}
 		return returnBag;
