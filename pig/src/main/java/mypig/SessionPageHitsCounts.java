@@ -29,8 +29,8 @@ public class SessionPageHitsCounts extends EvalFunc<DataBag> {
 		while(it.hasNext()) {
 			Tuple tp = TupleFactory.getInstance().newTuple();
 			String url = it.next();
-			tp.set(0, url);
-			tp.set(1, items.get(url));
+			tp.append(url);
+			tp.append(items.get(url));
 			returnBag.add(tp);
 		}
 		return returnBag;
